@@ -28,9 +28,3 @@ check-fail:
 	@echo '"$(MAKE) check" is not supported.'
 	@echo 'Do "$(MAKE) install", then "$(MAKE) installcheck" instead.'
 	@exit 1
-#
-# By default, postgres doesn't consider install to be a dependency of
-# installcheck. I've never understood why, but it's annoying. While were
-# mucking around, fix that.
-
-installcheck: install
