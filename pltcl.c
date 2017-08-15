@@ -289,6 +289,8 @@ static void pltcl_construct_errorCode(Tcl_Interp *interp, ErrorData *edata);
 static const char *pltcl_get_condition_name(int sqlstate);
 static int pltcl_quote(ClientData cdata, Tcl_Interp *interp,
 			int objc, Tcl_Obj *const objv[]);
+static int pltcl_cancel_pending(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]);
 static int pltcl_argisnull(ClientData cdata, Tcl_Interp *interp,
 				int objc, Tcl_Obj *const objv[]);
 static int pltcl_returnnull(ClientData cdata, Tcl_Interp *interp,
@@ -511,6 +513,8 @@ pltcl_init_interp(pltcl_interp_desc *interp_desc, Oid prolang, bool pltrusted)
 						 pltcl_elog, NULL, NULL);
 	Tcl_CreateObjCommand(interp, "quote",
 						 pltcl_quote, NULL, NULL);
+	Tcl_CreateObjCommand(interp, "cancel_pending",
+						 pltcl_cancel_pending, NULL, NULL);
 	Tcl_CreateObjCommand(interp, "argisnull",
 						 pltcl_argisnull, NULL, NULL);
 	Tcl_CreateObjCommand(interp, "return_null",
@@ -1992,6 +1996,16 @@ pltcl_get_condition_name(int sqlstate)
 	return "unrecognized_sqlstate";
 }
 
+/**********************************************************************
+ * pltcl_cancel_pending()	- return state of the global
+ *                                QueryCancelPending
+ **********************************************************************/
+static int
+pltcl_cancel_pending(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[])
+{
+	Tcl_SetObjResult(interp, Tcl_NewIntObj(QueryCancelPending));
+	return TCL_OK;
+}
 
 /**********************************************************************
  * pltcl_quote()	- quote literal strings that are to
