@@ -28,9 +28,15 @@ check-fail:
 	@echo '"$(MAKE) check" is not supported.'
 	@echo 'Do "$(MAKE) install", then "$(MAKE) installcheck" instead.'
 	@exit 1
-#
-# By default, postgres doesn't consider install to be a dependency of
-# installcheck. I've never understood why, but it's annoying. While were
-# mucking around, fix that.
 
-installcheck: install
+# Add a convenience test target. Stolen from pgxntool.
+#
+# make test: run any test dependencies, then do a `make install installcheck`.
+# If regressions are found, it will output them.
+#
+# This used to depend on clean as well, but that causes problems with
+# watch-make if you're generating intermediate files. If tests end up needing
+# clean it's an indication of a missing dependency anyway.
+.PHONY: test
+test: install installcheck
+	@if [ -r regression.diffs ]; then cat regression.diffs; fi
