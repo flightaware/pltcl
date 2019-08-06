@@ -50,11 +50,6 @@ PG_MODULE_MAGIC;
 #error PostgreSQL only supports Tcl 8.4 or later.
 #endif
 
-/* Hack to deal with Tcl 8.6 const-ification without losing compatibility */
-#ifndef CONST86
-#define CONST86
-#endif
-
 /* define our text domain for translations */
 #undef TEXTDOMAIN
 #define TEXTDOMAIN PG_TEXTDOMAIN("pltcl")
@@ -353,7 +348,7 @@ pltcl_FinalizeNotifier(ClientData clientData)
 }
 
 static void
-pltcl_SetTimer(CONST86 Tcl_Time *timePtr)
+pltcl_SetTimer(const Tcl_Time *timePtr)
 {
 }
 
@@ -379,7 +374,7 @@ pltcl_ServiceModeHook(int mode)
 }
 
 static int
-pltcl_WaitForEvent(CONST86 Tcl_Time *timePtr)
+pltcl_WaitForEvent(const Tcl_Time *timePtr)
 {
 	return 0;
 }
