@@ -2,6 +2,11 @@
 This repository is meant to facilitate development and potential release of pl/tcl
 features outside of the normal Postgres release process.
 
+# Requirements
+
+* PostgreSQL source tree
+* Tcl 8.6 or later
+
 # Building
 In order to build from this repository, you must have a checkout of the full Postgres
 source code. In that checkout, make certain that you can build and run pl/tcl. IE:
