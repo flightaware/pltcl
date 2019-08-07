@@ -45,10 +45,12 @@ PG_MODULE_MAGIC;
 	((TCL_MAJOR_VERSION > maj) || \
 	 (TCL_MAJOR_VERSION == maj && TCL_MINOR_VERSION >= min))
 
-/* Insist on Tcl >= 8.5 */
-#if !HAVE_TCL_VERSION(8,5)
-/* This extension uses Tcl_SetNotifier which requires Tcl 8.5 or later. */
-#error The PostgreSQL Tcl extension only supports Tcl 8.5 or later.
+/* Insist on Tcl >= 8.6 */
+#if !HAVE_TCL_VERSION(8,6)
+/* This extension uses Tcl_SetNotifier which requires Tcl 8.5 or later,
+ * and Tcl8.5 does not take consts in callback types such as (Tcl_SetTimerProc).
+ */
+#error The PostgreSQL pltcl extension only supports Tcl 8.6 or later.
 #endif
 
 /* define our text domain for translations */
