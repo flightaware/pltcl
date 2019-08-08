@@ -7,7 +7,26 @@
 #-------------------------------------------------------------------------
 
 subdir = src/pl/tcl
-top_builddir = ../../..
+
+#################################################
+#
+# CHANGES FOR STAND-ALONE REPOSITORY
+#
+# All the real changes are in stand-alone.mk, which we include. BUT, we need to
+# ensure that the user has set top_builddir, so we must comment it here! This
+# is the only modification to the original Makefile; please try to keep it that
+# way!
+#
+# COMMENTED OUT: top_builddir = ../../..
+
+# NOTE: This over-rides subdir! (set above)
+include stand-alone.mk
+
+# 
+#  END CHANGES
+# 
+#################################################
+
 include $(top_builddir)/src/Makefile.global
 
 
