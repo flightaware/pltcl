@@ -4,7 +4,7 @@ features outside of the normal Postgres release process.
 
 # Requirements
 
-* PostgreSQL source tree
+* PostgreSQL source tree, 11.5, configured and made
 * Tcl 8.6 or later
 
 # Building
